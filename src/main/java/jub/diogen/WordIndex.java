@@ -15,7 +15,7 @@ import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.stream.Stream;
 
-/*
+/**
    Extracts words from all documents in a folder and saves information about which words belong to which documents
    to a storage.
 */
@@ -33,7 +33,7 @@ public class WordIndex {
         indexWords();
     }
 
-    /* Collects and saves information about which words belong to which documents */
+    /** Collects and saves information about which words belong to which documents */
     private void indexWords() {
         logger.info("Started indexing words...");
         Path directory;
@@ -50,7 +50,8 @@ public class WordIndex {
         logger.info("Finished indexing words");
     }
 
-    /* Returns path to the folder containing set of texts to be processed.
+    /**
+       Returns path to the folder containing set of texts to be processed.
        The path is taken from environmental variable if it is set.
        If variable is not set, the path to example folder in resources is used.
      */
@@ -66,7 +67,7 @@ public class WordIndex {
         return directory;
     }
 
-    /* Extracts words from a single file and saves them in storage with file name as containing document name */
+    /** Extracts words from a single file and saves them in storage with file name as containing document name */
     private void indexWordsInFile(Path file) {
         String filename = com.google.common.io.Files.getNameWithoutExtension(file.getFileName().toString());
         try (Stream<String> stream = Files.lines(file)) {

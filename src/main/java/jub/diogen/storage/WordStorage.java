@@ -3,23 +3,23 @@ package jub.diogen.storage;
 import org.springframework.stereotype.Component;
 import java.util.*;
 
-/* In-memory storage of words and corresponding containing document names */
+/** In-memory storage of words and corresponding containing document names */
 @Component
 public class WordStorage {
     private final Map<String, List<String>> wordToDocuments = new HashMap<>();
 
-    /* Adds document name to the list of document names containing given word */
+    /** Adds document name to the list of document names containing given word */
     public void addEntry(String word, String document) {
         wordToDocuments.putIfAbsent(word, new ArrayList<>());
         wordToDocuments.get(word).add(document);
     }
 
-    /* Returns list of document names containing given word */
+    /** Returns list of document names containing given word */
     public List<String> getDocumentsForWord(String word) {
         return wordToDocuments.getOrDefault(word, new ArrayList<>());
     }
 
-    /* Returns map with word as key and list of document names containing word as value */
+    /** Returns map with word as key and list of document names containing word as value */
     public Map<String, List<String>> getDocumentsForWords(List<String> words) {
         Map<String, List<String>> result = new HashMap<>();
         for (var word : words) {
@@ -28,7 +28,7 @@ public class WordStorage {
         return result;
     }
 
-    /* Returns names of documents which contain all passed words */
+    /** Returns names of documents which contain all passed words */
     public List<String> getDocumentsContainingAllWords(List<String> words) {
         List<String> documentsNameIntersection = new ArrayList<>();
         for (int i = 0; i < words.size(); i++) {
