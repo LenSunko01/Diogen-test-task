@@ -1,5 +1,7 @@
 package jub.diogen;
 
+import static com.google.common.io.Files.getNameWithoutExtension;
+
 import jub.diogen.constants.Constants;
 import jub.diogen.storage.WordStorage;
 import jub.diogen.utils.EnvironmentUtil;
@@ -69,7 +71,7 @@ public class WordIndex {
 
     /** Extracts words from a single file and saves them in storage with file name as containing document name */
     private void indexWordsInFile(Path file) {
-        String filename = com.google.common.io.Files.getNameWithoutExtension(file.getFileName().toString());
+        String filename = getNameWithoutExtension(file.getFileName().toString());
         try (Stream<String> stream = Files.lines(file)) {
                 stream.flatMap(line -> Arrays.stream(line.strip().split("\\s+"))).distinct()
                     .forEach(word -> { if (!word.isEmpty()) { wordStorage.addEntry(word, filename); } });
