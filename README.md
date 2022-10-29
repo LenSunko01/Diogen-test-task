@@ -56,3 +56,6 @@ http://localhost:8080/all
 
 * (GET-запрос) Для каждого слова получить список содержащих его документов:
 http://localhost:8080/any
+
+## Known issues
+Если Gradle падает с Invalid source release: 17, нужно "File -> Settings.. -> Build, Execution, Deployment -> Build Tools -> Gradle" и поставить в Gradle JVM 17-ю версию
