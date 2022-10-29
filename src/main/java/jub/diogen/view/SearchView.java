@@ -6,6 +6,7 @@ import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.data.renderer.TextRenderer;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
@@ -25,7 +26,15 @@ public class SearchView extends VerticalLayout {
 
     enum SearchOption {
         SHOW_DOCUMENTS_FOR_EACH_SEARCH_WORD,
-        SHOW_DOCUMENTS_CONTAINING_ALL_WORDS
+        SHOW_DOCUMENTS_CONTAINING_ALL_WORDS;
+
+        public static String prettyName(SearchOption option) {
+            switch (option) {
+                case SHOW_DOCUMENTS_CONTAINING_ALL_WORDS: return "Show documents containing all words";
+                case SHOW_DOCUMENTS_FOR_EACH_SEARCH_WORD: return "Show documents for each search word";
+                default: throw new IllegalArgumentException("Option not supported");
+            }
+        }
     }
 
     ComboBox<SearchOption> searchOptions = new ComboBox<>("Search option");
@@ -72,6 +81,8 @@ public class SearchView extends VerticalLayout {
 
     private void configureSearchOptions() {
         searchOptions.setItems(SearchOption.SHOW_DOCUMENTS_CONTAINING_ALL_WORDS, SearchOption.SHOW_DOCUMENTS_FOR_EACH_SEARCH_WORD);
+        searchOptions.setRenderer(new TextRenderer<>(SearchOption::prettyName));
+        searchOptions.setItemLabelGenerator(SearchOption::prettyName);
         searchOptions.setValue(SearchOption.SHOW_DOCUMENTS_CONTAINING_ALL_WORDS);
         searchOptions.addValueChangeListener(e -> updateList());
         searchOptions.setWidthFull();
